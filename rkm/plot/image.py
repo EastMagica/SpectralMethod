@@ -54,7 +54,7 @@ def imshow_3d(u, t, extent=None):
 
 
 class IndexTracker:
-    def __init__(self, fig, ax, u, t_eval, extent=None, rate=1e-2):
+    def __init__(self, fig, ax, u, t_eval, x_eval=None, extent=None, rate=1e-2):
         self.fig = fig
         self.ax = ax
 
@@ -70,6 +70,8 @@ class IndexTracker:
             self.rate = 1
         else:
             self.rate = int(rate * self.slices)
+
+        self.x_eval = np.arange(self.u[0, ...].size) if x_eval is None else x_eval
 
         self.im = None
 
@@ -99,6 +101,7 @@ class IndexTracker:
             self.update_colorbar()
         elif self.ndim == 2:
             self.im = self.ax.plot(
+                self.x_eval,
                 self.u[self.ind, ...],
                 marker="."
             )[0]
@@ -124,9 +127,9 @@ class IndexTracker:
         self.ax.set_title("time: {:.4f}".format(self.t_eval[self.ind]))
 
 
-def imshow_scroll(u, t_eval, extent=None, rate=1e-2):
+def imshow_scroll(u, t_eval, x_eval=None, extent=None, rate=1e-2):
     fig, ax = plt.subplots(figsize=(6.5, 5.5))
-    tracker = IndexTracker(fig, ax, u, t_eval, extent, rate)
+    tracker = IndexTracker(fig, ax, u, t_eval, x_eval=x_eval, extent=extent, rate=rate)
     fig.canvas.mpl_connect('scroll_event', tracker.on_scroll)
     plt.show()
 

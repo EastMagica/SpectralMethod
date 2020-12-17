@@ -36,8 +36,8 @@ $$
 
 令 $\widehat{v}_k = e^{-ik^3t}\widehat{u}_k, g=e^{-ik^3t}$, 则可以得到
 
-$$\begin{aligned}
+$$\begin{cases}
     \frac{\mathrm{d}\widehat{v}}{\mathrm{d}t}&=-g\cdot\mathcal{F}(\mathcal{F}^{-1}(g^{-1}\cdot\widehat{v})\mathcal{F}^{-1}(g^{-1}\cdot ik\widehat{v})) \\
     \widehat{u}_k &= g^{-1}\cdot\widehat{v}
-\end{aligned} \tag{6}
+\end{cases} \tag{6}
 $$

@@ -16,12 +16,16 @@ def erk_step(t0, u0, dt, f, rkbt, args):
     for i in range(s):
         k[i, ...] = f(
             t0 + rkbt.c[i] * dt,
-            # u0 + dt * rkbt.A[i, ...] @ k,
-            u0 + dt * np.sum(k * rkbt.A[i, ...].reshape(s, 1, 1), axis=0),
+            # Note: for 1d
+            u0 + dt * rkbt.A[i, ...] @ k,
+            # Note: for 2d
+            # u0 + dt * np.sum(k @ rkbt.A[i, ...].reshape(s), axis=0),
             *args
         )
-    # u1 = u0 + dt * rkbt.b @ k
-    u1 = u0 + dt * np.sum(k * rkbt.b.reshape(s, 1, 1), axis=0)
+    # Note: for 1d
+    u1 = u0 + dt * rkbt.b @ k
+    # Note: for 2d
+    # u1 = u0 + dt * np.sum(k * rkbt.b.reshape(s, 1, 1), axis=0)
     return u1
 
 
